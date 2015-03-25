@@ -30,7 +30,7 @@ nav {
 
     nav li {
         float: left;
-        margin-right: 10%;
+        margin-right: 5%;
     }
 
 hr {
@@ -77,6 +77,10 @@ section ul {
     font-size: 1.5em;
     margin-top: 180px;
     display: inline-block;
+}
+
+section#errorMessage {
+    visibility: hidden;
 }
 
 a {

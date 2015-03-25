@@ -3,21 +3,19 @@
 // This receives input from Critiques.html and sends an email off to Mary with the information.
 
 $nameInput = $_POST['nameInput'];
-$fromEmail = $_POST['emailInput'];
 $emailBody = $_POST['comments'];
 $emailAttachment = $_POST['upFile'];
 $emailSubject = 'Critique Request from ' . $nameInput;
-$toEmail = 'marymjansen@msn.com';
+$toEmail = 'Mary Jansen <marymjansen@msn.com>';
+$fromServer = $_POST['emailInput'];
+$headers = 'From: ' . $fromServer . '\r\n';
+$headers .= "Content-Type: text/plain; charset=utf-8";
+$validFromemail = filter_input(INPUT_POST, 'emailInput', FILTER_VALIDATE_EMAIL);
+if ($validFromemail) {
+   $headers .= "\r\nReply-to: $validFromemail";
+   }
 
-$searchAt = strpos($fromEmail, '@');
-if ($searchAt === false) {
-   echo 'Please go back and enter a valid email address';
-   } elseif {
-       $emailParts = explode('@',$fromEmail);
-       $searchDot = strpos($emailParts[1], '.');
-       if ($searchDot === false) {
-           echo 'Please go back and enter a valid email address';
-       } else {
+$etry = mail($toEmail, $emailSubject, $emailBody, $headers, '-f' . $fromServer);
            echo 'Your request has been submitted.';
    }
 
