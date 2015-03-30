@@ -15,13 +15,11 @@
         <img class="banner" src="Images/tiger head.jpg" alt="Tiger Painting" />
         <nav>
             <ul>
-                <li><a href="Index.html">Home</a></li>
-                <li><a href="Biography.html">Biography</a></li>
-                <li><a href="Miniatures.html">Miniatures</a></li>
-                <li><a href="Watercolors.html">Watercolors</a></li>
-                <li>Critiques</li>
-                <li><a href="Tutorials.html">Tutorials</a></li>
-                <li><a href="Contact.html">Contact Us</a></li>
+               <li><a href="index.html">Home</a></li>
+                <li><a href="galleries.php">Galleries</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="biography.html">Biography</a></li>
+                <li><a href="contact.php">Contact Us</a></li>
             </ul>
         </nav>
     </header>

@@ -1,25 +1,37 @@
 ﻿
-<?php
-// This receives input from Critiques.html and sends an email off to Mary with the information.
 
-$nameInput = $_POST['nameInput'];
+
 $emailBody = $_POST['comments'];
 $emailAttachment = $_POST['upFile'];
-$emailSubject = 'Critique Request from ' . $nameInput;
-$toEmail = 'Mary Jansen <marymjansen@msn.com>';
-$fromServer = $_POST['emailInput'];
-$headers = 'From: ' . $fromServer . '\r\n';
-$headers .= "Content-Type: text/plain; charset=utf-8";
-$validFromemail = filter_input(INPUT_POST, 'emailInput', FILTER_VALIDATE_EMAIL);
-if ($validFromemail) {
-   $headers .= "\r\nReply-to: $validFromemail";
-   }
 
 $etry = mail($toEmail, $emailSubject, $emailBody, $headers, '-f' . $fromServer);
            echo 'Your request has been submitted.';
+
+<?php
+/* Script name: mailGraphic file
+ * Description: Sends a graphic file as an email attachment.
+ */
+ $nameInput = $_POST['nameInput']; 
+ $filename = "inputfile.jpg";
+ $fh = fopen($filename, "rb");
+ $fileContent = fread($fh.filesize($filename));
+ fclose($fh);
+ $mess = chunk_split(base64_encode($fileContent));
+ $toEmail = 'Mary Jansen <marymjansen@msn.com>';
+ $emailSubject = 'Critique Request from ' . $nameInput;
+ $headers = "Content-disposition: attachment; filename=inputfile.jpg\n";
+ $headers .= "Content-type: image/jpg\n";
+ $headers .="Content-Transfer-Encoding: base64\n";
+ $validFromemail = filter_input(INPUT_POST, 'emailInput', FILTER_VALIDATE_EMAIL);
+ if ($validFromemail) {
+   $headers .= "Reply-to: $validFromemail\n";
    }
-
-   //I still need to learn how to send an email from php. The tutorials did not cover that.
-
+ if (!$mailsend = mail($toEmail, $emailSubject, $mess, $headers)) {
+     echo "Mail not sent!\n";
+}
+else {
+    echo "Mail sent\n";
+}
 ?>
+	 
 

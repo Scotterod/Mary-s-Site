@@ -37,6 +37,10 @@ hr {
     clear: both;
     visibility: hidden;
 }
+ 
+h3.errorMessage {
+     color: #D13B3D;
+} 
 
 section {
     width: 90%;
@@ -50,6 +54,7 @@ section {
         margin-left: auto;
         text-align: left;
     }*/
+      
 
 img {
     border-radius: 5px;
@@ -79,9 +84,6 @@ section ul {
     display: inline-block;
 }
 
-section#errorMessage {
-    visibility: hidden;
-}
 
 a {
     color: #F7DFDF;

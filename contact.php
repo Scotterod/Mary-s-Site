@@ -15,13 +15,11 @@
         <img class="banner" src="Images/fern head.jpg" alt="Fern Painting" />
         <nav>
             <ul>
-                <li><a href="Index.html">Home</a></li>
-                <li><a href="Biography.html">Biography</a></li>
-                <li><a href="Miniatures.html">Miniatures</a></li>
-                <li><a href="Watercolors.html">Watercolors</a></li>
-                <li><a href="Critiques.html">Critiques</a></li>
-                <li><a href="Tutorials.html">Tutorials</a></li>
-                <li>Contact Us</li>
+               <li><a href="index.html">Home</a></li>
+               <li><a href="galleries.php">Galleries</a></li>
+               <li><a href="services.html">Services</a></li>
+               <li><a href="biography.html">Biography</a></li>
+               <li>Contact Us</li>
             </ul>
         </nav>
     </header>
@@ -29,7 +27,7 @@
     <section>
         <h1>Mary Jansen</h1>
         <p>Mary is always happy to "talk" shop. Please fill out all fields in the form below.</p>
-        <form method="POST" action="#" enctype="multipart/form-data">
+        <form method="POST" action="contact.php" enctype="multipart/form-data">
             <p>Your Full Name</p>
             <p><label><input type="text" name="nameInput" required placeholder="Your full name"></label></p>
             <p>Your Email Address</p>
@@ -40,5 +38,29 @@
             <p> <input type="reset" value="Reset Values"></p>
         </form>
     </section>
+    <section><p>
+  
+<?php  
+ $headers ='';
+ if (isset($_POST['emailInput'])) {
+   $emailBody = $_POST['comments'];
+   $nameInput = $_POST['nameInput']; 
+   $toEmail = 'Mary Jansen <marymjansen@msn.com>';
+   $emailSubject = 'Web Mail from ' . $nameInput; 
+   $validFromemail = filter_input(INPUT_POST, 'emailInput', FILTER_VALIDATE_EMAIL);
+   if ($validFromemail) {
+     $headers = "Reply-to: $validFromemail\n";
+   }
+   if (!$mailsend = mail($toEmail, $emailSubject, $emailBody, $headers)) {
+     echo "Mail not sent!\n";
+   }
+   else {
+     echo "Mail sent\n";
+   }
+  }  
+  
+?>
+   </p></section> 
+    
 </body>
 </html>
