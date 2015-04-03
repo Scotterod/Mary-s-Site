@@ -1,0 +1,28 @@
+td
+{
+    padding:0 15px 0 15px;
+}
+
+
+img.thumbnail {
+    border-radius: 3px;
+    border: 1px solid black;
+    width: 30px;
+    display: inline-block;
+    margin-right: 35px;
+    margin-left: 15px;
+}
+
+
+img.gallery {
+    border-radius: 4px;
+    border: 3px solid black;
+    width: 22em;
+    cursor: pointer;
+}    
+
+
+img:hover, img:focus {
+        border: none;
+    }
+    

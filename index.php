@@ -1,20 +1,25 @@
 ﻿<!DOCTYPE html>
+
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
-    <link type="text/css" rel="stylesheet" href="stylesheetM.css" media="screen" />
+    <meta name="description" content="A site to find watercolor paintings for sale and advice on how to create them">
+    <meta name="keywords" content="Mary Jansen, watercolor, miniature, painting, artist, tutorial, critique">
+    <title>Mary Jansen | Watercolor Artist</title>
     <link rel="shortcut icon" href="/Images/favicon.ico">
+    <link type="text/css" rel="stylesheet" href="stylesheetM.css" media="screen" />
     <script type="text/javascript" src="/Scripts/jquery-1.11.2.min.js"></script>
-    <script type="text/javascript" src="/Scripts/main.js"></script>    
-    <title>Mary Jansen: Critique Form</title>
+    <script type="text/javascript" src="/Scripts/main.js"></script>
 </head>
+
 <body>
     <header>
-
-        <img class="banner" src="Images/b_tiger head.jpg" alt="Tiger Painting" />
+        <img class="banner" src="Images/homeBanner.jpg" alt="Flamingo Painting" />
+ 
         <nav>
 
-                <div class="menubox"><a href="index.php">Home</a></div>
+                <div class="menubox">Home</div>
                 <div class="menubox dropper"><a href="productDisplay.php?category=watercolors">Galleries</a>
                    <ul class="submenu">
 <?php
@@ -48,22 +53,22 @@
                 <div class="menubox"><a href="contact.php">Contact Us</a></div>
         </nav>
     </header>
-    <hr>
+    <br /><hr>
     <section>
-        <h1>Mary Jansen</h1>
-        <p>To receive your professional critique of your own art work, and a great deal of customized advice, please fill out all fields in the form below.</p>
-        <form method="POST" action="emailCritique.php" enctype="multipart/form-data">
-            <p>Your Full Name</p>
-            <p><label><input type="text" name="nameInput" required placeholder="Your full name"></label></p>
-            <p>Your Email Address (where Mary&rsquo;s critique will arrive)</p>
-            <p><label><input type="email" name="emailInput" required placeholder="email address"></label></p>
-            <p><label>Enter questions or comments to help shape your desired critique (max 500 characters):</label></p>
-            <textarea cols="103" rows="5" maxlength="500" name="comments"></textarea>
-            <p>Upload a file with your own art:</p>
-            <input type="file" name="upFile" />
-            <p> <input type="submit" value="Submit"></p>
-            <p> <input type="reset" value="Reset Values"></p>
-        </form>
+        <br /><br /><br /><br />
+        <img id="homeImage" src="Images/MarySmile.jpg" alt="Mary Jansen" />
+        <p>
+            Welcome! Art is my passion and provides me the challenge of relaying this amazing and beautiful world through the filter of my soul.  I hope that you too will be moved by my interpretation and see the wonder and worldly beauty that I find so compelling.
+        </p>
+        <!--<hr />-->
+        <ul>
+            <li>See Mary&rsquo;s beautiful products for sale (or sold) in <a href="productDisplay.php?category=watercolors">Galleries</a></li>
+            <li>Request a critique, tutorial, or other <a href="services.html">service</a></li>
+            <li>See her <a href="biography.html">Biography</a></li>
+            <li>Or send an email with a <a href="contact.php">comment/question</a></li>
+
+        </ul>
+        <p></p>
     </section>
 </body>
 </html>

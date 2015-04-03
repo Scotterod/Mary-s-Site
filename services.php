@@ -1,17 +1,17 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
     <link type="text/css" rel="stylesheet" href="stylesheetM.css" media="screen" />
+    <link type="text/css" rel="stylesheet" href="stylesheetS.css" media="screen" />
     <link rel="shortcut icon" href="/Images/favicon.ico">
     <script type="text/javascript" src="/Scripts/jquery-1.11.2.min.js"></script>
-    <script type="text/javascript" src="/Scripts/main.js"></script>    
-    <title>Mary Jansen: Critique Form</title>
+    <script type="text/javascript" src="/Scripts/main.js"></script>
+    <title>Mary Jansen: Services</title>
 </head>
 <body>
     <header>
-
-        <img class="banner" src="Images/b_tiger head.jpg" alt="Tiger Painting" />
+        <img class="banner" src="Images/peony head.jpg" alt="Peony Painting" />
         <nav>
 
                 <div class="menubox"><a href="index.php">Home</a></div>
@@ -48,22 +48,16 @@
                 <div class="menubox"><a href="contact.php">Contact Us</a></div>
         </nav>
     </header>
-    <hr>
+    <hr /><br /><br /><br />
     <section>
+        <img id="serviceImage" src="Images/MaryChair.jpg" alt="Mary with Squirrel" width="250" />
         <h1>Mary Jansen</h1>
-        <p>To receive your professional critique of your own art work, and a great deal of customized advice, please fill out all fields in the form below.</p>
-        <form method="POST" action="emailCritique.php" enctype="multipart/form-data">
-            <p>Your Full Name</p>
-            <p><label><input type="text" name="nameInput" required placeholder="Your full name"></label></p>
-            <p>Your Email Address (where Mary&rsquo;s critique will arrive)</p>
-            <p><label><input type="email" name="emailInput" required placeholder="email address"></label></p>
-            <p><label>Enter questions or comments to help shape your desired critique (max 500 characters):</label></p>
-            <textarea cols="103" rows="5" maxlength="500" name="comments"></textarea>
-            <p>Upload a file with your own art:</p>
-            <input type="file" name="upFile" />
-            <p> <input type="submit" value="Submit"></p>
-            <p> <input type="reset" value="Reset Values"></p>
-        </form>
+ 	<ul>
+ 		<li>Check out Mary&rsquo;s online Video <a href="tutorials.php">Tutorials</a></li>
+ 		<li>Receive a professional critique and assessment of YOUR <a href="critiques.php">Work</a></li>
+ 		<li>Contract Mary to teach, advise, commission, or other <a href="contact.php">Services</a></li> 		
+ 	</ul>
+ 	<br><br><br>
     </section>
 </body>
 </html>

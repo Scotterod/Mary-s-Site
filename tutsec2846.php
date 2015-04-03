@@ -6,15 +6,11 @@
     <link rel="shortcut icon" href="/Images/favicon.ico">
     <script type="text/javascript" src="/Scripts/jquery-1.11.2.min.js"></script>
     <script type="text/javascript" src="/Scripts/main.js"></script>    
-    <title>Mary Jansen: Contact Us</title>
+    <title>Mary Jansen: Tutorial Menu</title>
 </head>
 <body>
     <header>
-        <!--<hgroup>
-            <h1>Mary Jansen</h1>
-            <h2>Artist Extraordinaire</h2>
-        </hgroup>-->
-        <img class="banner" src="Images/fern head.jpg" alt="Fern Painting" />
+        <img class="banner" src="Images/tiger head.jpg" alt="Tiger Miniature" />
         <nav>
 
                 <div class="menubox"><a href="index.php">Home</a></div>
@@ -48,47 +44,23 @@
                       <li><a href="tutorials.php">Tutorials</a></li>
                    </ul></div>  
                 <div class="menubox"><a href="biography.php">Biography</a></div>
-                <div class="menubox">Contact Us</div>
+                <div class="menubox"><a href="contact.php">Contact Us</a></div>
         </nav>
     </header>
     <hr>
     <section>
-        <h1>Mary Jansen</h1>
-        <p>Mary is always happy to "talk" shop. Please fill out all fields in the form below.</p>
-        <form method="POST" action="contact.php" enctype="multipart/form-data">
-            <p>Your Full Name</p>
-            <p><label><input type="text" name="nameInput" required placeholder="Your full name"></label></p>
-            <p>Your Email Address</p>
-            <p><label><input type="email" name="emailInput" required placeholder="email address"></label></p>
-            <p><label for="comments">Enter questions or comments (max 500 characters):</label></p>
-            <textarea cols="103" rows="5" maxlength="500" name="comments"></textarea>
-            <p> <input type="submit" value="Submit"></p>
-            <p> <input type="reset" value="Reset Values"></p>
-        </form>
+        <h1>Welcome to Unlimited access to Mary Jansen's Tutorials</h1>
+        <h2>Please select the tutorial video below</h2>
+        <ol>
+            <li>Purchasing Supplies</li>
+            <li>Preparing Space and Time</li>
+            <li>Pencil Sketching Your Plan</li>
+            <li>Mixing Colors</li>
+            <li>Background Items</li>
+            <li>Foreground Items</li>
+            <li>Finishing Touches</li>
+        </ol>
     </section>
-    <section><p>
-  
-<?php  
- $headers ='';
- if (isset($_POST['emailInput'])) {
-   $emailBody = $_POST['comments'];
-   $nameInput = $_POST['nameInput']; 
-   $toEmail = 'Mary Jansen <marymjansen@msn.com>';
-   $emailSubject = 'Web Mail from ' . $nameInput; 
-   $validFromemail = filter_input(INPUT_POST, 'emailInput', FILTER_VALIDATE_EMAIL);
-   if ($validFromemail) {
-     $headers = "Reply-to: $validFromemail\n";
-   }
-   if (!$mailsend = mail($toEmail, $emailSubject, $emailBody, $headers)) {
-     echo "Mail not sent!\n";
-   }
-   else {
-     echo "Mail sent\n";
-   }
-  }  
-  
-?>
-   </p></section> 
-    
+
 </body>
 </html>

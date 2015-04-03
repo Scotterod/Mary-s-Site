@@ -8,39 +8,38 @@ header {
     margin-left: auto;
 }
 
-/*hgroup {
-    text-align: center;
-    text-shadow: 1px 1px 2px red;
-    float: left;
-}*/
+body ul {
+    list-style-type: none;
+}
+
 
 nav {
     color: #F7DFDF;
-    margin: auto;
-    padding: 0;
-    border: 0;
-    outline: 0;
-    vertical-align: baseline;
+
 }
 
-    nav ul {
-        list-style-type: none;
-        font-size: 1em;
-    }
-
-    nav li {
+div.menubox {
+        width: 140px;
+        height: 100px;
         float: left;
-        margin-right: 5%;
+        margin-left: 5%;
+        margin-top: 1em;
     }
+    
+ul.submenu {
+    display: block;
+    float: none;
+    margin-left: -35px;
+    margin-top: 0px;
+}        
+
+
 
 hr {
     clear: both;
     visibility: hidden;
 }
  
-h3.errorMessage {
-     color: #D13B3D;
-} 
 
 section {
     width: 90%;
@@ -48,12 +47,6 @@ section {
     margin-right: auto;
     margin-left: auto;
 }
-
-/*    section h1 {
-        margin-right: auto;
-        margin-left: auto;
-        text-align: left;
-    }*/
       
 
 img {
@@ -75,6 +68,11 @@ img {
         width: 90%;
         border: none;
     }
+    
+    img.individual {
+	margin: auto;
+	display: block;
+    }
 
 
 section ul {
@@ -87,10 +85,10 @@ section ul {
 
 a {
     color: #F7DFDF;
-    /*background-color: #4F3F3D;*/
 }
 
     a:hover, a:focus {
         text-decoration: none;
         color: #D13B30;
     }
+    

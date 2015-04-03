@@ -1,17 +1,17 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
     <link type="text/css" rel="stylesheet" href="stylesheetM.css" media="screen" />
+    <link type="text/css" rel="stylesheet" href="stylesheetG.css" media="screen" />
     <link rel="shortcut icon" href="/Images/favicon.ico">
     <script type="text/javascript" src="/Scripts/jquery-1.11.2.min.js"></script>
     <script type="text/javascript" src="/Scripts/main.js"></script>    
-    <title>Mary Jansen: Critique Form</title>
+    <script type="text/javascript" src="/Scripts/gallery.js"></script>    
+    <title>Mary Jansen: Products</title>
 </head>
 <body>
     <header>
-
-        <img class="banner" src="Images/b_tiger head.jpg" alt="Tiger Painting" />
         <nav>
 
                 <div class="menubox"><a href="index.php">Home</a></div>
@@ -48,22 +48,56 @@
                 <div class="menubox"><a href="contact.php">Contact Us</a></div>
         </nav>
     </header>
-    <hr>
+    <hr /><br /><br /><br />
     <section>
-        <h1>Mary Jansen</h1>
-        <p>To receive your professional critique of your own art work, and a great deal of customized advice, please fill out all fields in the form below.</p>
-        <form method="POST" action="emailCritique.php" enctype="multipart/form-data">
-            <p>Your Full Name</p>
-            <p><label><input type="text" name="nameInput" required placeholder="Your full name"></label></p>
-            <p>Your Email Address (where Mary&rsquo;s critique will arrive)</p>
-            <p><label><input type="email" name="emailInput" required placeholder="email address"></label></p>
-            <p><label>Enter questions or comments to help shape your desired critique (max 500 characters):</label></p>
-            <textarea cols="103" rows="5" maxlength="500" name="comments"></textarea>
-            <p>Upload a file with your own art:</p>
-            <input type="file" name="upFile" />
-            <p> <input type="submit" value="Submit"></p>
-            <p> <input type="reset" value="Reset Values"></p>
-        </form>
+       <table>
+          <col width="50">
+          <col width="260">
+          <col width="300">
+<?php
+	$category = $_GET['category'];
+
+	$host = "localhost";
+	$user = "marymjan_root";
+	$password = "brainHurts5294#";
+
+	$cxn = mysql_connect($host,$user,$password) or die(mysql_error());
+ 
+	mysql_select_db ("marymjan_maryart" , $cxn);
+	
+ 
+	$sql = "SELECT * FROM mj_productMaster " .
+	        "WHERE category = '" . $category . "' " .
+	        "ORDER BY subCategory, quantity DESC;";
+
+	$products = mysql_query($sql, $cxn);
+
+	$sql = "SELECT * FROM mj_typeMaster " .
+	        "WHERE category = '" . $category . "' " .
+	        "ORDER BY displayOrder;";
+
+	$mainTypes = mysql_query($sql, $cxn);
+		
+	while($row = mysql_fetch_array($products)) {
+		$prodId = $row['ID'];
+		$title = $row['title'];
+		$description = $row['description'];
+		$basePrice = $row['basePrice'] / 100.00;
+		$quantity = $row['quantity'];
+                if ($quantity > 0) {$priceDisp = '$' . $basePrice;}
+                else {$priceDisp = 'SOLD';}		
+		$imageLocation = $row['thumbnail'];
+		$hrefBase = '<a href="dispOneItem.php?id=' . $prodId . '"><img class = "gallery" src="Images/';
+		echo '<tr>' . "\r\n";
+		  echo '  <td>' . $title . '<br>' . $priceDisp . '</td>' . "\r\n";
+                  echo '  <td>' . $description . '</td>' . "\r\n";
+                  echo '  <td>' . $hrefBase . $imageLocation . '"/></a></td>' . "\r\n";
+                echo '</tr>' . "\r\n";
+	}
+
+?>               
+       </table>
+
     </section>
 </body>
 </html>

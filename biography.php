@@ -5,6 +5,8 @@
     <link type="text/css" rel="stylesheet" href="stylesheetM.css" media="screen" />
     <link type="text/css" rel="stylesheet" href="stylesheetB.css" />
     <link rel="shortcut icon" href="/Images/favicon.ico">
+    <script type="text/javascript" src="/Scripts/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="/Scripts/main.js"></script>
     <title>Mary Jansen: Biography</title>
 </head>
 <body>
@@ -15,13 +17,39 @@
         </hgroup>-->
         <img class="banner" src="Images/koi head.jpg" alt="Koi Painting" />
         <nav>
-            <ul>
-               <li><a href="index.html">Home</a></li>
-               <li><a href="galleries.php">Galleries</a></li>
-               <li><a href="services.html">Services</a></li>
-               <li>Biography</li>
-               <li><a href="contact.php">Contact Us</a></li>
-            </ul>
+
+                <div class="menubox"><a href="index.php">Home</a></div>
+                <div class="menubox dropper"><a href="productDisplay.php?category=watercolors">Galleries</a>
+                   <ul class="submenu">
+<?php
+// This php reads the mysql table to see what types of products are to be displayed on the gallery sub-menu.
+	$host = "localhost";
+	$user = "marymjan_root";
+	$password = "brainHurts5294#";
+
+	$cxn = mysql_connect($host,$user,$password) or die(mysql_error());
+ 
+	mysql_select_db ("marymjan_maryart" , $cxn);
+ 
+	$sql = "SELECT DISTINCT category FROM mj_typeMaster
+	        WHERE displayOrder < 9990
+	        ORDER BY displayOrder";
+
+	$result = mysql_query($sql, $cxn);
+
+	while($row = mysql_fetch_array($result)) {
+		$category = $row['category'];
+		echo '                    <li><a href="productDisplay.php?category=' . $category . '">' . $category . '</a></li>' . "\r\n";
+	}
+?>    
+                   </ul></div>                
+                <div class="menubox dropper"><a href="services.php">Services</a>
+                   <ul class="submenu">
+                      <li><a href="critiques.php">Critiques</a></li>
+                      <li><a href="tutorials.php">Tutorials</a></li>
+                   </ul></div>  
+                <div class="menubox">Biography</div>
+                <div class="menubox"><a href="contact.php">Contact Us</a></div>
         </nav>
     </header>
     <hr><br><br><br>

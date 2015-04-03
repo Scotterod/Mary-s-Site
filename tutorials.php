@@ -1,4 +1,5 @@
 ﻿<!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -6,15 +7,44 @@
     <link rel="shortcut icon" href="/Images/favicon.ico">
     <script type="text/javascript" src="/Scripts/jquery-1.11.2.min.js"></script>
     <script type="text/javascript" src="/Scripts/main.js"></script>    
-    <title>Mary Jansen: Contact Us</title>
+    <title>Mary Jansen: Tutorials</title>
 </head>
+<?php
+// This php receives input from Logon Form, validates, and branches user to new destination.
+$baduser=false;
+$badpassword=false;
+if (isset($_POST['nameInput']) and isset($_POST['passwordInput'])) {
+	$nameInput = $_POST['nameInput'];
+	$passwordInput = $_POST['passwordInput'];
+
+	$host = "localhost";
+	$user = "marymjan_root";
+	$password = "brainHurts5294#";
+
+	$cxn = mysql_connect($host,$user,$password) or die(mysql_error());
+ 
+	mysql_select_db ("marymjan_maryart" , $cxn);
+ 
+	$sql = "SELECT * FROM customers";
+
+	$result = mysql_query($sql, $cxn);
+
+	while($row = mysql_fetch_array($result)) {
+		$username = $row['userName'];
+		$pass = $row['password'];
+		if ($username == $nameInput) {
+			if ($pass != $passwordInput) {
+				$badpassword=true;
+			} else {header("Location: tutsec2846.php");}
+		}
+	}
+$baduser = true;
+}
+?>
+
 <body>
     <header>
-        <!--<hgroup>
-            <h1>Mary Jansen</h1>
-            <h2>Artist Extraordinaire</h2>
-        </hgroup>-->
-        <img class="banner" src="Images/fern head.jpg" alt="Fern Painting" />
+        <img class="banner" src="Images/b_tiger head.jpg" alt="Tiger Miniature" />
         <nav>
 
                 <div class="menubox"><a href="index.php">Home</a></div>
@@ -48,47 +78,25 @@
                       <li><a href="tutorials.php">Tutorials</a></li>
                    </ul></div>  
                 <div class="menubox"><a href="biography.php">Biography</a></div>
-                <div class="menubox">Contact Us</div>
+                <div class="menubox"><a href="contact.php">Contact Us</a></div>
         </nav>
     </header>
     <hr>
     <section>
-        <h1>Mary Jansen</h1>
-        <p>Mary is always happy to "talk" shop. Please fill out all fields in the form below.</p>
-        <form method="POST" action="contact.php" enctype="multipart/form-data">
-            <p>Your Full Name</p>
-            <p><label><input type="text" name="nameInput" required placeholder="Your full name"></label></p>
-            <p>Your Email Address</p>
-            <p><label><input type="email" name="emailInput" required placeholder="email address"></label></p>
-            <p><label for="comments">Enter questions or comments (max 500 characters):</label></p>
-            <textarea cols="103" rows="5" maxlength="500" name="comments"></textarea>
+        <h1>Mary Jansen Tutorials</h1>
+        <p>For paid subscribers only. Please <a href="Contact.html">contact</a> Mary directly if you do not already have a username and password.</p>
+        <form method="POST" action="Tutorials.php">
+            <p>Your User Name (as supplied by Mary)</p>
+            <p><label><input type="text" name="nameInput" required placeholder="user name"></label></p>
+            <p>Your Password (as supplied by Mary)</p>
+            <p><label><input type="password" name="passwordInput" required placeholder="password"></label></p>
             <p> <input type="submit" value="Submit"></p>
-            <p> <input type="reset" value="Reset Values"></p>
         </form>
     </section>
-    <section><p>
-  
-<?php  
- $headers ='';
- if (isset($_POST['emailInput'])) {
-   $emailBody = $_POST['comments'];
-   $nameInput = $_POST['nameInput']; 
-   $toEmail = 'Mary Jansen <marymjansen@msn.com>';
-   $emailSubject = 'Web Mail from ' . $nameInput; 
-   $validFromemail = filter_input(INPUT_POST, 'emailInput', FILTER_VALIDATE_EMAIL);
-   if ($validFromemail) {
-     $headers = "Reply-to: $validFromemail\n";
-   }
-   if (!$mailsend = mail($toEmail, $emailSubject, $emailBody, $headers)) {
-     echo "Mail not sent!\n";
-   }
-   else {
-     echo "Mail sent\n";
-   }
-  }  
-  
-?>
-   </p></section> 
-    
+    <section>
+        <h3 class="errorMessage"><?php if ($badpassword) {echo 'Wrong password for this user';} 
+		      else if ($baduser) {echo 'This username is invalid. Please try again, or contact Mary for new values to enter.';}
+		    ?></h3>
+    </section>
 </body>
 </html>
