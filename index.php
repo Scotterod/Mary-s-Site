@@ -40,12 +40,14 @@
 
 	while($row = mysql_fetch_array($result)) {
 		$category = $row['category'];
-		echo '                    <li><a href="productDisplay.php?category=' . $category . '">' . $category . '</a></li>' . "\r\n";
+		$categoryURL= str_replace(" ", "+", $category);
+		echo '                    <li><a href="productDisplay.php?category=' . $categoryURL . '">' . $category . '</a></li>' . "\r\n";
 	}
 ?>    
                    </ul></div>                
                 <div class="menubox dropper"><a href="services.php">Services</a>
                    <ul class="submenu">
+                      <li><a href="register.php">Registration</a></li>
                       <li><a href="critiques.php">Critiques</a></li>
                       <li><a href="tutorials.php">Tutorials</a></li>
                    </ul></div>  
@@ -57,18 +59,18 @@
     <section>
         <br /><br /><br /><br />
         <img id="homeImage" src="Images/MarySmile.jpg" alt="Mary Jansen" />
-        <p>
+        <h3>
             Welcome! Art is my passion and provides me the challenge of relaying this amazing and beautiful world through the filter of my soul.  I hope that you too will be moved by my interpretation and see the wonder and worldly beauty that I find so compelling.
-        </p>
-        <!--<hr />-->
+        </h3>
+
         <ul>
             <li>See Mary&rsquo;s beautiful products for sale (or sold) in <a href="productDisplay.php?category=watercolors">Galleries</a></li>
-            <li>Request a critique, tutorial, or other <a href="services.html">service</a></li>
-            <li>See her <a href="biography.html">Biography</a></li>
+            <li>Request a critique, tutorial, or other <a href="services.php">service</a></li>
+            <li>See her <a href="biography.php">Biography</a></li>
             <li>Or send an email with a <a href="contact.php">comment/question</a></li>
 
         </ul>
-        <p></p>
+        <p></p><br>
     </section>
 </body>
 </html>

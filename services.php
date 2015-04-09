@@ -35,12 +35,14 @@
 
 	while($row = mysql_fetch_array($result)) {
 		$category = $row['category'];
-		echo '                    <li><a href="productDisplay.php?category=' . $category . '">' . $category . '</a></li>' . "\r\n";
+		$categoryURL= str_replace(" ", "+", $category);
+		echo '                    <li><a href="productDisplay.php?category=' . $categoryURL . '">' . $category . '</a></li>' . "\r\n";
 	}
 ?>    
                    </ul></div>                
                 <div class="menubox dropper"><a href="services.php">Services</a>
                    <ul class="submenu">
+                      <li><a href="register.php">Registration</a></li>
                       <li><a href="critiques.php">Critiques</a></li>
                       <li><a href="tutorials.php">Tutorials</a></li>
                    </ul></div>  
@@ -53,6 +55,7 @@
         <img id="serviceImage" src="Images/MaryChair.jpg" alt="Mary with Squirrel" width="250" />
         <h1>Mary Jansen</h1>
  	<ul>
+ 		<li>Join the Friends-of-Mary Club with <a href="register.php">Registration</a></li>
  		<li>Check out Mary&rsquo;s online Video <a href="tutorials.php">Tutorials</a></li>
  		<li>Receive a professional critique and assessment of YOUR <a href="critiques.php">Work</a></li>
  		<li>Contract Mary to teach, advise, commission, or other <a href="contact.php">Services</a></li> 		

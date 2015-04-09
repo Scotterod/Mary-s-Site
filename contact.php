@@ -10,10 +10,7 @@
 </head>
 <body>
     <header>
-        <!--<hgroup>
-            <h1>Mary Jansen</h1>
-            <h2>Artist Extraordinaire</h2>
-        </hgroup>-->
+
         <img class="banner" src="Images/fern head.jpg" alt="Fern Painting" />
         <nav>
 
@@ -38,12 +35,14 @@
 
 	while($row = mysql_fetch_array($result)) {
 		$category = $row['category'];
-		echo '                    <li><a href="productDisplay.php?category=' . $category . '">' . $category . '</a></li>' . "\r\n";
+		$categoryURL= str_replace(" ", "+", $category);
+		echo '                    <li><a href="productDisplay.php?category=' . $categoryURL . '">' . $category . '</a></li>' . "\r\n";
 	}
 ?>    
                    </ul></div>                
                 <div class="menubox dropper"><a href="services.php">Services</a>
                    <ul class="submenu">
+                      <li><a href="register.php">Registration</a></li>
                       <li><a href="critiques.php">Critiques</a></li>
                       <li><a href="tutorials.php">Tutorials</a></li>
                    </ul></div>  
@@ -77,7 +76,7 @@
    $emailSubject = 'Web Mail from ' . $nameInput; 
    $validFromemail = filter_input(INPUT_POST, 'emailInput', FILTER_VALIDATE_EMAIL);
    if ($validFromemail) {
-     $headers = "Reply-to: $validFromemail\n";
+     $headers = "Reply-to: " . $validFromemail . "\n";
    }
    if (!$mailsend = mail($toEmail, $emailSubject, $emailBody, $headers)) {
      echo "Mail not sent!\n";

@@ -3,14 +3,19 @@
 <head>
     <meta charset="utf-8">
     <link type="text/css" rel="stylesheet" href="stylesheetM.css" media="screen" />
+    <link type="text/css" rel="stylesheet" href="stylesheetT.css" media="screen" />    
     <link rel="shortcut icon" href="/Images/favicon.ico">
     <script type="text/javascript" src="/Scripts/jquery-1.11.2.min.js"></script>
-    <script type="text/javascript" src="/Scripts/main.js"></script>    
+    <script type="text/javascript" src="/Scripts/main.js"></script>
+    <script type="text/javascript" src="/Scripts/tutorials.js"></script>
+    <script src="/Scripts/jquery.bxslider.min.js"></script>  <!-- bxSlider CSS file -->
+    <link href="/jquery.bxslider.css" rel="stylesheet" />  
     <title>Mary Jansen: Tutorial Menu</title>
 </head>
 <body>
     <header>
-        <img class="banner" src="Images/tiger head.jpg" alt="Tiger Miniature" />
+<!--        <img class="banner" src="Images/b_tiger head.jpg" alt="Tiger Miniature" />  -->
+
         <nav>
 
                 <div class="menubox"><a href="index.php">Home</a></div>
@@ -34,12 +39,14 @@
 
 	while($row = mysql_fetch_array($result)) {
 		$category = $row['category'];
-		echo '                    <li><a href="productDisplay.php?category=' . $category . '">' . $category . '</a></li>' . "\r\n";
+		$categoryURL= str_replace(" ", "+", $category);
+		echo '                    <li><a href="productDisplay.php?category=' . $categoryURL . '">' . $category . '</a></li>' . "\r\n";
 	}
 ?>    
                    </ul></div>                
                 <div class="menubox dropper"><a href="services.php">Services</a>
                    <ul class="submenu">
+                      <li><a href="register.php">Registration</a></li>
                       <li><a href="critiques.php">Critiques</a></li>
                       <li><a href="tutorials.php">Tutorials</a></li>
                    </ul></div>  
@@ -48,8 +55,17 @@
         </nav>
     </header>
     <hr>
+    <section id="slider">
+       <ul class="bxslider">
+         <li><img src="/Images/t_imastick.jpg" /></li>
+         <li><img src="/Images/t_connotations.jpg" /></li>
+         <li><img src="/Images/t_leaflitter.jpg" /></li>
+       </ul>
+    </section>
+    
     <section>
-        <h1>Welcome to Unlimited access to Mary Jansen's Tutorials</h1>
+        <h1>Welcome to Unlimited access to Mary Jansen&rsquo;s Tutorials</h1>
+        <h1>Let Mary teach you how to make paintings like these....</h1>
         <h2>Please select the tutorial video below</h2>
         <ol>
             <li>Purchasing Supplies</li>
@@ -61,6 +77,7 @@
             <li>Finishing Touches</li>
         </ol>
     </section>
+    
 
 </body>
 </html>

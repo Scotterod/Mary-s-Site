@@ -1,34 +1,61 @@
 ﻿<!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <link type="text/css" rel="stylesheet" href="stylesheetM.css" media="screen" />
-    <link type="text/css" rel="stylesheet" href="stylesheetG.css" media="screen" />
     <link rel="shortcut icon" href="/Images/favicon.ico">
     <script type="text/javascript" src="/Scripts/jquery-1.11.2.min.js"></script>
-    <script type="text/javascript" src="/Scripts/main.js"></script>    
+    <script type="text/javascript" src="/Scripts/main.js"></script>
     <title>Product Maintenance</title>
 </head>
 <body>
     <header>
         <nav>
-           <ul>
-               <li><a href="index.html">Home</a></li>
-               <li><a href="galleries.php">Galleries</a></li>
-                <li><a href="services.html">Services</a></li>
-               <li><a href="biography.html">Biography</a></li>
-               <li><a href="contact.php">Contact Us</a></li>
-            </ul>
+
+                <div class="menubox">Home</div>
+                <div class="menubox dropper"><a href="productDisplay.php?category=watercolors">Galleries</a>
+                   <ul class="submenu">
+<?php
+// This php reads the mysql table to see what types of products are to be displayed on the gallery sub-menu.
+	$host = "localhost";
+	$user = "marymjan_root";
+	$password = "brainHurts5294#";
+
+	$cxn = mysql_connect($host,$user,$password) or die(mysql_error());
+ 
+	mysql_select_db ("marymjan_maryart" , $cxn);
+ 
+	$sql = "SELECT DISTINCT category FROM mj_typeMaster
+	        WHERE displayOrder < 9990
+	        ORDER BY displayOrder";
+
+	$result = mysql_query($sql, $cxn);
+
+	while($row = mysql_fetch_array($result)) {
+		$category = $row['category'];
+		$categoryURL= str_replace(" ", "+", $category);
+		echo '                    <li><a href="productDisplay.php?category=' . $categoryURL . '">' . $category . '</a></li>' . "\r\n";
+	}
+?>    
+                   </ul></div>                
+                <div class="menubox dropper"><a href="services.php">Services</a>
+                   <ul class="submenu">
+                      <li><a href="register.php">Registration</a></li>
+                      <li><a href="critiques.php">Critiques</a></li>
+                      <li><a href="tutorials.php">Tutorials</a></li>
+                   </ul></div>  
+                <div class="menubox"><a href="biography.php">Biography</a></div>
+                <div class="menubox"><a href="contact.php">Contact Us</a></div>
         </nav>
     </header>
     <hr /><br /><br /><h1>If you got to this screen, please tell Mary immediately how you did it.
         This screen is used only to add new products to the gallery of items for sale.</h1><br />
     <section>
-      <form method="POST" action="prodAddMasterRecord482747.php" enctype="multipart/form-data">
+      <form method="POST" action = "prodAddMasterRecord482747.php" enctype="multipart/form-data">
       <p>Pick a category</p>
-       <select id="category" name="category">
+      
 <?php
-/************This section fills the dropbox for the type categories that are allowed********/
+/************This section fills the radio for the type categories that are allowed********/
 	$host = "localhost";
 	$user = "marymjan_root";
 	$password = "brainHurts5294#";
@@ -48,31 +75,30 @@
 		$subCategory = $row['subCategory'];
 		$subcatstring .= $subCategory . ',';
 		if ($lastCategory != $category) {
-		   echo '<option value="' . $category . '">' . $category . '</option>' . "\r\n";
+                   echo '<br><input type="radio" name="category" value="' . $category . '">' . $category . "\r\n";		   
 		   $lastCategory = $category;
-		}
+		} else {echo '*';};
 	}
 	$subcatstring .= '!';
 ?>               
-       </select><br>
+       <br>
        <p>Pick a subcategory</p>
-	<select id="subcat" name="subcat">';
-	 <option value="ALL">ALL</option>'
+       <input type="radio" name="subCategory" value="" checked>NULL<br>
+
 <?php
-/**********This section fills the subCategory dropbox options*******/
+/**********This section fills the subCategory radio options*******/
 
         $subcats = explode(',' , $subcatstring);
-//        echo $subcats[0] . $subcats[1] . $subcats[2] . $subcats[3];
         $counter = 0;
         while ($subcats[$counter] != '!') {
-          if ($subcats[$counter] != 'ALL') {
-            echo '<option value="' . $subcats[$counter] . '">' . $subcats[$counter] . '</option>' . "\r\n";
+          if ($subcats[$counter]) {
+            echo '<input type="radio" name="subCategory" value="' . $subcats[$counter] . '">' . $subcats[$counter] . "<br>\r\n";
             }
           $counter++;
        };
 
 ?>       
-       </select><br>
+
             <p>New Product Title</p>
             <p><label><input type="text" name="titleInput" required placeholder="title" maxlength="30"></label></p><br>
             <p><label>Enter full description (max 250 characters):</label></p>
@@ -91,33 +117,18 @@
             <p><label><input type="text" name="thumbnailInput" placeholder="thumbnail" maxlength="30"></label></p><br>
             <p>Fullsize Filename</p> 
             <p><label><input type="text" name="imageInput" placeholder="big file" maxlength="30"></label></p><br>
+            <p>Picture Width as a Percentage</p>
+            <p><label><input type="number" name="widthInput" required value="0"></label></p><br>           
             <p>Dimensions as Painted (eg. 10.5 X 16.75)</p> 
             <p><label><input type="text" name="dimPaintedInput" maxlength="20"></label></p><br>
             <p>Dimensions as Framed</p> 
-            <p><label><input type="text" name="dimFramedInput" maxlength="20"></label></p><br>                                         
+            <p><label><input type="text" name="dimFramedInput" maxlength="20"></label></p><br>   
+            <p>Display Order within (sub)category</p>
+            <p><label><input type="number" name="dispOrderInput" required value="0"></label></p><br>                                                  
             <p> <input type="submit" value="Submit"></p><br>
             <p> <input type="reset" value="Reset Values"></p>
        </form>
     </section>
 
-<?php
-/*
-      if (isset(titleInput)) {
-	$sql = "INSERT into mj_productMaster " .
-	        "(`title`, `description`, `category`, `subCategory`, `quantity`, `basePrice`, `shipSurcharge`, `frameSurcharge`, `shipAndFrame`, `thumbnail`, `image`, `dimensionsPainted`, `dimensionsFramed`, `otherRedirect`) " .
-	        "VALUES ($_POST['titleInput'],$_POST['descriptionInput'],$_POST['category'],$_POST['subcat'],$_POST['quantityInput']," .
-	        "$_POST['basePriceInput'],$_POST['shipChargeInput'],$_POST['frameChargeInput'],$_POST['shipFrameChargeInput']," .
-	        "$_POST['thumbnailInput'],$_POST['imageInput'],$_POST['dimPaintedInput'],$_POST['dimFramedInput']";
-
-	if ($result = mysql_query($sql, $cxn)) {
-	    echo 'entry added!';
-	    } else {
-	    echo 'ERROR--nothing was added!';
-	    };
-      }
-*/
-?>               
-    
-    
 </body>
 </html>

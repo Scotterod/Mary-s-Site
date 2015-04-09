@@ -11,10 +11,7 @@
 </head>
 <body>
     <header>
-        <!--<hgroup>
-            <h1>Mary Jansen</h1>
-            <h2>Artist Extraordinaire</h2>
-        </hgroup>-->
+
         <img class="banner" src="Images/koi head.jpg" alt="Koi Painting" />
         <nav>
 
@@ -39,12 +36,14 @@
 
 	while($row = mysql_fetch_array($result)) {
 		$category = $row['category'];
-		echo '                    <li><a href="productDisplay.php?category=' . $category . '">' . $category . '</a></li>' . "\r\n";
+		$categoryURL= str_replace(" ", "+", $category);
+		echo '                    <li><a href="productDisplay.php?category=' . $categoryURL . '">' . $category . '</a></li>' . "\r\n";
 	}
 ?>    
                    </ul></div>                
                 <div class="menubox dropper"><a href="services.php">Services</a>
                    <ul class="submenu">
+                      <li><a href="register.php">Registration</a></li>
                       <li><a href="critiques.php">Critiques</a></li>
                       <li><a href="tutorials.php">Tutorials</a></li>
                    </ul></div>  
@@ -64,44 +63,26 @@
     <article>
         <h1>What Others Say About Mary</h1>
         <h2>Awards and Honors from Juried Shows</h2>
-        <h3>2014</h3>
-        <p>IWS- Illinois Watercolor Society- honorable mention "Wild Waterfowl"</p>
-        <p>TWSA- Transparent Watercolor Society of America- "Koi Ahoy"</p>
-        <p>MPSGS- Miniature Painters, Sculptors and Gravers Society of Washington D.C. International show. honorable mention"Logging Out" Voted signature membership.</p>
-        <p>MASF- Miniature Art Society of Florida International Show. Award-2nd Transparent Watercolor "Where's Mom?"</p>
-        <p>Cider Painters of America- Award- Leonards Claim Service Award "Guarded Submission".</p>
-        <p>Splash 16 Best of Watercolor- publication. "Koi Ahoy"</p>
-        <h3>2013</h3>
-        <p>TWSA- Transparent Watercolor Society of America- Award- Lakes Region Watercolor Guild "Midas Touch"</p>
-        <p>MPSGS- Miniature Painters, Sculptors and Gravers Society of Washington D.C. International show- Award- 3rd Watermedia "Rook on the Rocks"</p>
-        <p>MASF- Miniature Art Society of Florida International Show. Award- Honorable Mention "Spring Canyon"</p>
-        <p>Cider Painters of America- Award-Americana Award "Weathering the Storms"</p>
-        <p>Snow Goose Gallery- annual Miniature show</p>
-        <p>Oak Park Arboretum- solo show</p>
-        <p>Carrie's Creations- Carrie Waller's online Friday Feature Artist interview article</p>
-        <h3>2012</h3>
-        <p>MPSGS- Miniature Painters, Sculptors and Gravers Society of Washington D.C. International show</p>
-        <p>MASF- Miniature Art Society of Florida International Show. Award-3rd Watercolors "Red-Eyed Flight"</p>
-        <p>Cider Painters of America</p>
-        <p>Parklane Miniature Show</p>
-        <p>Artistic Designs Gallery- miniature show. Award 1st Watercolor "Rook on the Rocks"</p>
-        <p>Snow Goose Gallery- annual Miniature show</p>
-        <p>Seaside Miniature Show</p>
-        <p>The Waterfront- online featured artist interview.</p>
-        <h3>2011</h3>
-        <p>MPSGS- Miniature Painters, Sculptors and Gravers Society of Washington D.C. International show- Award-3rd Watercolor "On Golden Pond"</p>
-        <p>MASF- Miniature Art Society of Florida International Show. Award- Excellence in All Entries and 1st Botanicals "Royal Beauty"</p>
-        <p>Seaside Miniature Show</p>
-        <h3>2010</h3>
-        <p>MASF- Miniature Art Society of Florida International Show</p>
-        <p>Seaside Miniature Show- Award Best Drawing "On Watch"</p>
-        <p>Parklane Miniature Show</p>
-        <p>Riverside Public Library-solo show</p>
-        <h3>2009</h3>
-        <p>MPSGS- Miniature Painters, Sculptors and Gravers Society of Washington D.C. International show.</p>
-        <p>Seaside International Miniature Art Show- Best in Watercolor award "Quiet Repose"</p>
-        <p>Parklane Miniature Show- Award President's Award "Afternoon at the Fair"</p>
-        <p>Riverside Town Hall - solo show</p>
+        
+<?php        
+	$sql = "SELECT * FROM mj_bioBlurbs ORDER BY blurbYear DESC";
+
+	$result = mysql_query($sql, $cxn);
+
+	while($row = mysql_fetch_array($result)) {
+		$blurbYear = $row['blurbYear'];
+		echo '<h3>' . $blurbYear . '</h3>' . "\r\n";		
+		for($i = 0; $i<12; $i++) {
+		   $blurbName = 'blurb' + ((string)($i+1));
+		   if($row[$blurbName] > ' ') {
+		      echo '    <p>' . str_replace("'", "&rsquo;", $row[$blurbName]) . '</p>' . "\r\n";
+	   	   } else {
+	   	      $i=12;
+	   	      };
+	   	};      
+	}
+?>    
+
     </article>
 </body>
 </html>

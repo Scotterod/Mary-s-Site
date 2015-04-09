@@ -1,6 +1,7 @@
 td
 {
     padding:0 15px 0 15px;
+    vertical-align: top;
 }
 
 
@@ -19,6 +20,7 @@ img.gallery {
     border: 3px solid black;
     width: 22em;
     cursor: pointer;
+    margin-bottom: 15px;
 }    
 
 
@@ -26,3 +28,24 @@ img:hover, img:focus {
         border: none;
     }
     
+aside {
+    margin-left: 14%;
+    position: absolute;
+}
+
+aside h1 {
+    visibility: hidden;
+}
+
+article {
+    float: right;
+}        
+
+body  {
+    position: relative;
+}
+
+table {
+    width: 60%;
+    float: right;
+}

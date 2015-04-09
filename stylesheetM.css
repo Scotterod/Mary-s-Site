@@ -1,6 +1,6 @@
 body {
     font-family: 'Franklin Gothic', Arial, sans-serif;
-    background-color: #574E4D;
+    background-color: #FFFFEB;
 }
 
 header {
@@ -14,7 +14,7 @@ body ul {
 
 
 nav {
-    color: #F7DFDF;
+    color: #4C4C46;
 
 }
 
@@ -43,7 +43,7 @@ hr {
 
 section {
     width: 90%;
-    color: #D9CBCA;
+    color: #4C4C46;
     margin-right: auto;
     margin-left: auto;
 }
@@ -70,21 +70,23 @@ img {
     }
     
     img.individual {
-	margin: auto;
+	margin-left: 10px;
 	display: block;
+	float: right;
+	margin-bottom: 30px;
     }
 
 
 section ul {
     text-align: left;
     font-size: 1.5em;
-    margin-top: 180px;
+    margin-top: 140px;
     display: inline-block;
 }
 
 
 a {
-    color: #F7DFDF;
+    color: #4C4C46;
 }
 
     a:hover, a:focus {

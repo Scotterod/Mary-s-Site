@@ -6,8 +6,7 @@
     <link type="text/css" rel="stylesheet" href="stylesheetG.css" media="screen" />
     <link rel="shortcut icon" href="/Images/favicon.ico">
     <script type="text/javascript" src="/Scripts/jquery-1.11.2.min.js"></script>
-    <script type="text/javascript" src="/Scripts/main.js"></script>    
-    <script type="text/javascript" src="/Scripts/gallery.js"></script>    
+    <script type="text/javascript" src="/Scripts/productDisplay.js"></script>    
     <title>Mary Jansen: Products</title>
 </head>
 <body>
@@ -35,12 +34,14 @@
 
 	while($row = mysql_fetch_array($result)) {
 		$category = $row['category'];
-		echo '                    <li><a href="productDisplay.php?category=' . $category . '">' . $category . '</a></li>' . "\r\n";
+		$categoryURL= str_replace(" ", "+", $category);
+		echo '                    <li><a href="productDisplay.php?category=' . $categoryURL . '">' . $category . '</a></li>' . "\r\n";
 	}
 ?>    
                    </ul></div>                
                 <div class="menubox dropper"><a href="services.php">Services</a>
                    <ul class="submenu">
+                      <li><a href="register.php">Registration</a></li>
                       <li><a href="critiques.php">Critiques</a></li>
                       <li><a href="tutorials.php">Tutorials</a></li>
                    </ul></div>  
@@ -49,37 +50,61 @@
         </nav>
     </header>
     <hr /><br /><br /><br />
-    <section>
-       <table>
-          <col width="50">
-          <col width="260">
-          <col width="300">
+    <aside>
+        
+        
 <?php
 	$category = $_GET['category'];
-
-	$host = "localhost";
-	$user = "marymjan_root";
-	$password = "brainHurts5294#";
-
-	$cxn = mysql_connect($host,$user,$password) or die(mysql_error());
- 
-	mysql_select_db ("marymjan_maryart" , $cxn);
+	$useSubCat = false;
+	$sql = "SELECT subCategory FROM mj_typeMaster WHERE category = '" . $category . "';";
+	$testNullTemp = mysql_query($sql, $cxn);
+	$row = mysql_fetch_array($testNullTemp);
+	$row = mysql_fetch_array($testNullTemp);
+	if ($row) {
+	      $useSubCat = true;
+	      echo '<h1>Contents...</h1>';
+	      $sql = "SELECT subCategory FROM mj_typeMaster WHERE category = '" . $category . "' ORDER BY displayOrder;";
+	      $result = mysql_query($sql, $cxn);
+	      while($row = mysql_fetch_array($result)) {
+	         $subCat=$row['subCategory'];
+		 echo '   <h2><a href="#' . $subCat . '">' . $subCat . '</a></h2>' . "\r\n";
+	      };	      
+	      
+	};	
 	
- 
-	$sql = "SELECT * FROM mj_productMaster " .
-	        "WHERE category = '" . $category . "' " .
-	        "ORDER BY subCategory, quantity DESC;";
+/*******This was to put heading blurbs for each subcategory
+        $sql = "SELECT intro, subCategory FROM mj_typeMaster WHERE category = '" . $category . "' ORDER BY displayOrder;";
+	$result = mysql_query($sql, $cxn);
+	if ($useSubCat) {
+	    while($row = mysql_fetch_array($result)) {
+		echo '   <br><p>' . $row['intro'] . '</p>' . "\r\n";
+	    };
+	};
+**********/
+?>       
+
+    </aside>
+    <section><article>
+       <table>
+
+<?php
+
+
+	if ($useSubCat) { 
+        	$sql = "SELECT * FROM mj_productMaster M, mj_typeMaster T WHERE M.category = T.category AND M.subCategory = T.subCategory " .
+		        "AND M.category = '" . $category . "' " .
+	        	"ORDER BY T.displayOrder, M.quantity DESC, M.dispOrder;";
+	        } else {
+	        $sql = "SELECT * FROM mj_productMaster WHERE category = '" . $category . "' ORDER BY quantity DESC, dispOrder;";
+	        }
 
 	$products = mysql_query($sql, $cxn);
-
-	$sql = "SELECT * FROM mj_typeMaster " .
-	        "WHERE category = '" . $category . "' " .
-	        "ORDER BY displayOrder;";
-
-	$mainTypes = mysql_query($sql, $cxn);
-		
+	
+        $lastSubCat = 'x';
+        
 	while($row = mysql_fetch_array($products)) {
 		$prodId = $row['ID'];
+		$subCat = $row['subCategory'];
 		$title = $row['title'];
 		$description = $row['description'];
 		$basePrice = $row['basePrice'] / 100.00;
@@ -87,17 +112,26 @@
                 if ($quantity > 0) {$priceDisp = '$' . $basePrice;}
                 else {$priceDisp = 'SOLD';}		
 		$imageLocation = $row['thumbnail'];
-		$hrefBase = '<a href="dispOneItem.php?id=' . $prodId . '"><img class = "gallery" src="Images/';
+		$hrefBase = '<a href="dispOneItem.php?id=' . $prodId . '" target ="_blank"><img class = "gallery" src="Images/';
+                if ($subCat != $lastSubCat and $lastSubCat != 'x') {
+                     echo '<tr><td><br id="' . $subCat . 'br"><br></td><td></td><td></td></tr>' . "\r\n";
+                     }
 		echo '<tr>' . "\r\n";
-		  echo '  <td>' . $title . '<br>' . $priceDisp . '</td>' . "\r\n";
-                  echo '  <td>' . $description . '</td>' . "\r\n";
-                  echo '  <td>' . $hrefBase . $imageLocation . '"/></a></td>' . "\r\n";
-                echo '</tr>' . "\r\n";
+                echo '  <td>' . $hrefBase . $imageLocation . '" alt="' . $title . '"/></a></td>' . "\r\n";		
+		if ($subCat != $lastSubCat) {  
+		      echo '  <td><a id="' . $subCat . '"></a>' . $title . '<br>' . $priceDisp . '</td>' . "\r\n";
+		  } else {
+		      echo '  <td>' . $title . '<br>' . $priceDisp . '  </td>' . "\r\n";
+		  };
+                 echo '  <td>' . $description . '  </td>' . "\r\n";
+                 echo '</tr>' . "\r\n";
+		 $lastSubCat = $subCat;                   
 	}
 
 ?>               
        </table>
-
-    </section>
+    </article></section>
+    <br><hr><br>
+    <footer>website designed by Scott Jansen</footer>
 </body>
 </html>
