@@ -61,7 +61,8 @@
             <p><label><input type="email" name="emailInput" required placeholder="email address"></label></p>
             <p><label>Enter questions or comments to help shape your desired critique (max 500 characters):</label></p>
             <textarea cols="103" rows="5" maxlength="500" name="comments"></textarea>
-            <p>Upload a file with your own art:</p>
+            <p>Upload a file (max 9.9MB) with your own art:</p>
+            <input type="hidden" name="MAX_FILE_SIZE" value="10000000">
             <input type="file" name="upFile" />
             <p> <input type="submit" value="Submit"></p>
             <p> <input type="reset" value="Reset Values"></p>
@@ -69,3 +70,4 @@
     </section>
 </body>
 </html>
+

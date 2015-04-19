@@ -54,9 +54,10 @@ img {
     border: 6px solid black;
 }
 
-    img#homeImage, img#bioImage {
+    img#homeImage {
         margin-left: 5%;
         margin-right: 10%;
+        margin-bottom: 35px;
         float: left;
         display: block;
         width: 350px;
@@ -76,6 +77,15 @@ img {
 	margin-bottom: 30px;
     }
 
+.introPara  {
+    line-height: 230%;
+}
+
+span.introLetter {
+    font-size: 4.0em;
+    vertical-align: baseline;
+    font-family: 'papyrus', 'garamond', 'Franklin Gothic', Arial, sans-serif;
+}
 
 section ul {
     text-align: left;

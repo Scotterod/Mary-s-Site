@@ -59,17 +59,15 @@
     <section>
         <br /><br /><br /><br />
         <img id="homeImage" src="Images/MarySmile.jpg" alt="Mary Jansen" />
-        <h3>
-            Welcome! Art is my passion and provides me the challenge of relaying this amazing and beautiful world through the filter of my soul.  I hope that you too will be moved by my interpretation and see the wonder and worldly beauty that I find so compelling.
-        </h3>
+        <h3 class="introPara">
+            <span class="introLetter">M</span>ay you become inspired and moved by the work of Mary Jansen. Mary is an award-winning artist who specializes in all things wild and interesting…particularly avian art. Enter the site…take part in the tutorials, lessons and critiques, and enjoy!
+        </h3><br>
 
-        <ul>
-            <li>See Mary&rsquo;s beautiful products for sale (or sold) in <a href="productDisplay.php?category=watercolors">Galleries</a></li>
-            <li>Request a critique, tutorial, or other <a href="services.php">service</a></li>
-            <li>See her <a href="biography.php">Biography</a></li>
-            <li>Or send an email with a <a href="contact.php">comment/question</a></li>
+        <h3>See Mary&rsquo;s beautiful products for sale (or sold) in <a href="productDisplay.php?category=watercolors">Galleries</a></h3>
+        <h3>Request a critique, tutorial, or other <a href="services.php">service</a></h3>
+        <h3>See her <a href="biography.php">Biography</a></h3>
+        <h3>Or send an email with a <a href="contact.php">comment/question</a></h3>
 
-        </ul>
         <p></p><br>
     </section>
 </body>

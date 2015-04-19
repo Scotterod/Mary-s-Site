@@ -50,6 +50,7 @@
         </nav>
     </header>
     <hr /><br /><br /><br />
+    <a id="topper"></a>
     <aside>
         
         
@@ -70,17 +71,16 @@
 		 echo '   <h2><a href="#' . $subCat . '">' . $subCat . '</a></h2>' . "\r\n";
 	      };	      
 	      
-	};	
-	
-/*******This was to put heading blurbs for each subcategory
-        $sql = "SELECT intro, subCategory FROM mj_typeMaster WHERE category = '" . $category . "' ORDER BY displayOrder;";
-	$result = mysql_query($sql, $cxn);
-	if ($useSubCat) {
-	    while($row = mysql_fetch_array($result)) {
-		echo '   <br><p>' . $row['intro'] . '</p>' . "\r\n";
-	    };
+	} else {
+             $sql = "SELECT intro FROM mj_typeMaster WHERE category = '" . $category . "';";
+	     $result = mysql_query($sql, $cxn);
+	     $row = mysql_fetch_array($result);
+	     echo '   <h2>' . $row['intro'] . '</h2>' . "\r\n";
+	     echo '   <br><br>' . "\r\n";
+	     echo '   <h2>Back to <a href="#topper">Top</a></h2>' . "\r\n";
 	};
-**********/
+	
+
 ?>       
 
     </aside>
@@ -101,8 +101,9 @@
 	$products = mysql_query($sql, $cxn);
 	
         $lastSubCat = 'x';
-        
+        $productCount = 0;
 	while($row = mysql_fetch_array($products)) {
+	        $productCount++;
 		$prodId = $row['ID'];
 		$subCat = $row['subCategory'];
 		$title = $row['title'];
@@ -131,6 +132,11 @@
 ?>               
        </table>
     </article></section>
+<?php
+     if ($productCount < 2) {echo '<br><br><br>';}
+     if ($productCount < 1) {echo '<br><br><br><br>';}
+     
+?>    
     <br><hr><br>
     <footer>website designed by Scott Jansen</footer>
 </body>

@@ -113,10 +113,16 @@
             <p><label><input type="number" name="frameChargeInput" required value="0"></label></p><br> 
             <p>FramingShipping Combo Surcharge</p>
             <p><label><input type="number" name="shipFrameChargeInput" required value="0"></label></p><br>
-            <p>Thumbnail Filename</p> 
+            <p>Thumbnail Filename on Server</p> 
             <p><label><input type="text" name="thumbnailInput" placeholder="thumbnail" maxlength="30"></label></p><br>
-            <p>Fullsize Filename</p> 
+            <p>Upload thumbnail:</p>
+            <input type="hidden" name="MAX_FILE_SIZE" value="1000000">            
+            <input type="file" name="thumbFile" />
+            <p>Fullsize Filename on Server</p> 
             <p><label><input type="text" name="imageInput" placeholder="big file" maxlength="30"></label></p><br>
+            <p>Upload full file:</p>
+            <input type="hidden" name="MAX_FILE_SIZE" value="10000000">            
+            <input type="file" name="fullFile" />            
             <p>Picture Width as a Percentage</p>
             <p><label><input type="number" name="widthInput" required value="0"></label></p><br>           
             <p>Dimensions as Painted (eg. 10.5 X 16.75)</p> 

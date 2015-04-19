@@ -11,78 +11,44 @@
    <p>
    
 ﻿<?php
-
- $emailInput = $_POST['emailInput'];
- $validFromemail = filter_var($emailInput, FILTER_VALIDATE_EMAIL);
- 
- if (!$validFromemail) {
+set_include_path(dirname(__FILE__) . '/php-includes/');
+/**
+ * PHPMailer script
+ */
+$fromName = $_POST['nameInput'];      
+$emailInput = $_POST['emailInput'];
+$validFromemail = filter_var($emailInput, FILTER_VALIDATE_EMAIL);
+if (!$validFromemail) {
         echo 'email address is invalid';
         echo 'Message not sent!';
-   } else {
-     $to = 'Mary Jansen <marymjansen@msn.com>'; 
-     $fromName = $_POST['nameInput'];      
-     $subject = 'Critique Request from ' . $fromName;
-     $message =  $_POST['comments'];
-   
-//     $headers = "Reply-to: " . $validFromemail;
-     $headers = "From: $validFromemail"; 
-       
-     // GET File Variables 
-     $tmpName = $_FILES['upFile']['tmp_name']; 
-     $fileType = $_FILES['upFile']['type']; 
-     $fileName = $_FILES['upFile']['name']; 
-     
-     // Reading file ('rb' = read binary) 
-     $file = fopen($tmpName,'rb'); 
-     $data = fread($file,filesize($tmpName)); 
-     fclose($file); 
-
-     // a boundary string 
-     $randomVal = md5(time()); 
-     $mimeBoundary = "==Multipart_Boundary_x{$randomVal}x"; 
- 
-
-     // Header for File Attachment  
-     $headers .= "nMIME-Version: 1.0n"; 
-     $headers .= "Content-Type: multipart/mixed;n" ;     
-     $headers .= " boundary="{$mimeBoundary}""; 
-     
-  }
-  /*     
-             
-     
-     
-     // Multipart Boundary above message 
-     $message = "This is a multi-part message in MIME format.nn" . 
-        "--{$mimeBoundary}n" . 
-        "Content-Type: text/plain; charset="iso-8859-1"n" . 
-        "Content-Transfer-Encoding: 7bitnn" . 
-     $message . "nn"; 
-     
-     // Encoding file data 
-     $data = chunk_split(base64_encode($data)); 
-
-     // Adding attchment-file to message
-     $message .= "--{$mimeBoundary}n" . 
-     "Content-Type: {$fileType};n" . 
-     " name="{$fileName}"n" . 
-     "Content-Transfer-Encoding: base64nn" . 
-     $data . "nn" . 
-     "--{$mimeBoundary}--n"; 
-     echo 'all set to email....';
-     
-     
-    $flgchk = mail("$to", "$subject", "$message", "$headers"); 
-
-    if($flgchk) {
-      echo "Your email has been sent";
-     }
-    else {
-      echo "Error in sending Email ";
+ } else { 
+  $msg = '';
+  if (array_key_exists('upFile', $_FILES)) {
+    // First handle the upload
+    // Don't trust provided filename - same goes for MIME types
+    $uploadfile = tempnam(sys_get_temp_dir(), sha1($_FILES['upFile']['name']));
+    if (move_uploaded_file($_FILES['upFile']['tmp_name'], $uploadfile)) {
+        // Upload handled successfully
+        // Now create a message
+        // This should be somewhere in your include_path
+        require 'PHPMailerAutoload.php';
+        $mail = new PHPMailer;
+        $mail->setFrom($validFromemail, $fromName);
+        $mail->addAddress('marymjansen@msn.com', 'Mary Jansen');
+        $mail->Subject = 'Critique Request from ' . $fromName;
+        $mail->msgHTML($_POST['comments']);
+        // Attach the uploaded file
+        $mail->addAttachment($uploadfile, $_FILES['upFile']['name']);
+        if (!$mail->send()) {
+            echo "Mailer Error: " . $mail->ErrorInfo;
+        } else {
+            echo "Message sent!";
+        }
+    } else {
+        echo 'Failed to move file to ' . $uploadfile;
     }
-    
-    */
-
+  }
+}
 
 ?>      
   </p>

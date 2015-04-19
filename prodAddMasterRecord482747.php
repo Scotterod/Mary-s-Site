@@ -10,6 +10,18 @@
    <h1>Adding your record....</h1>
    
 ﻿<?php
+    //Writes the photos to the server folder
+    ini_set('display_errors',1);
+    error_reporting(E_ALL);
+    $thumbTarget = "/home3/marymjan/public_html/Images/" . $_POST['thumbnailInput'];
+    $fullTarget = "/home3/marymjan/public_html/Images/" . $_POST['imageInput'];
+    if(move_uploaded_file($_FILES['thumbFile']['tmp_name'], $thumbTarget)) {
+       echo "thumbfile uploaded... ";
+       } else {echo " Sorry, there was a problem uploading " . $thumbTarget . " from " . $_FILES['thumbFile']['tmp_name'];}
+    if(move_uploaded_file($_FILES['fullFile']['tmp_name'], $fullTarget)) {
+       echo "fullfile uploaded... ";
+    } else {echo " Sorry, there was a problem uploading " . $fullTarget;}    
+    //Adds the record to Product Master
 	$host = "localhost";
 	$user = "marymjan_root";
 	$password = "brainHurts5294#";
