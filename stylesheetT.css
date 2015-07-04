@@ -1,0 +1,29 @@
+#logonError {
+    visibility: hidden;
+}
+
+.errorMessage {
+    visibility: hidden;
+}    
+
+.showError {
+    color: red;
+}
+
+
+section ul {
+    text-align: center;
+    margin-top: 0px;
+    display: block;
+}
+
+
+#slider {
+    width: 45%;
+    float: right;
+    height: 5%;
+    margin-top: 0px;
+    
+}
+
+    
